@@ -65,16 +65,18 @@ describe('BankAccount', () => {
   });
 
   test('fetchBalance should return number in case if request did not failed', async () => {
-    const spy = jest.spyOn(lodash, 'random');
-    spy.mockReturnValue(balanceIfFetchBalanceFailed);
-    spy.mockReturnValueOnce(1);
+    const randomSpy = jest.spyOn(lodash, 'random');
+    randomSpy.mockReturnValue(balanceIfFetchBalanceFailed);
+    randomSpy.mockReturnValueOnce(1);
     const res = await testBankAccount.fetchBalance();
     expect(typeof res).toBe('number');
   });
 
   test('should set new balance if fetchBalance returned number', async () => {
-    const spy = jest.spyOn(testBankAccount, 'fetchBalance');
-    spy.mockReturnValueOnce(Promise.resolve(balanceIfFetchBalanceFailed));
+    const fetchBalanceSpy = jest.spyOn(testBankAccount, 'fetchBalance');
+    fetchBalanceSpy.mockReturnValueOnce(
+      Promise.resolve(balanceIfFetchBalanceFailed),
+    );
     await testBankAccount.synchronizeBalance();
     const balance = testBankAccount.getBalance();
     expect(balance).toBe(balanceIfFetchBalanceFailed);

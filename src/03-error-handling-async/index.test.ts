@@ -13,11 +13,11 @@ describe('resolveValue', () => {
     const numValue = 10;
     const objValue = { a: 'resolved', b: 101 };
 
-    expect(resolveValue(strValue)).resolves.toBe(strValue);
-    expect(resolveValue(numValue)).resolves.toBe(numValue);
-    expect(resolveValue(undefined)).resolves.toBeUndefined();
-    expect(resolveValue(null)).resolves.toBeNull();
-    expect(resolveValue(objValue)).resolves.toEqual(objValue);
+    await expect(resolveValue(strValue)).resolves.toBe(strValue);
+    await expect(resolveValue(numValue)).resolves.toBe(numValue);
+    await expect(resolveValue(undefined)).resolves.toBeUndefined();
+    await expect(resolveValue(null)).resolves.toBeNull();
+    await expect(resolveValue(objValue)).resolves.toEqual(objValue);
   });
 });
 
@@ -34,14 +34,12 @@ describe('throwError', () => {
 
 describe('throwCustomError', () => {
   test('should throw custom error', () => {
-    const customError = new MyAwesomeError();
-    expect(() => throwCustomError()).toThrow(customError.message);
+    expect(() => throwCustomError()).toThrow(MyAwesomeError);
   });
 });
 
 describe('rejectCustomError', () => {
   test('should reject custom error', async () => {
-    const customError = new MyAwesomeError();
-    expect(() => rejectCustomError()).rejects.toThrow(customError.message);
+    await expect(() => rejectCustomError()).rejects.toThrow(MyAwesomeError);
   });
 });

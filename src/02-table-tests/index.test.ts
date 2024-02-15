@@ -29,12 +29,10 @@ const testCases = [
 ];
 
 describe('simpleCalculator', () => {
-  const start = Number(new Date());
   test.each(testCases)(
-    'Test case: simpleCalculator({ a: $a, b: $b, action: $action })',
+    '$action-ing with $a and $b should return $expected',
     ({ a, b, action, expected }) => {
       expect(simpleCalculator({ a, b, action })).toBe(expected);
     },
   );
-  expect(Number(new Date()) - start).toBeLessThanOrEqual(30000);
 });
