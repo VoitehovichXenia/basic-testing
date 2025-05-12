@@ -1,4 +1,3 @@
-// Uncomment the code below and write your tests
 import path from 'node:path';
 import fs from 'node:fs';
 import fsPromises from 'node:fs/promises';
